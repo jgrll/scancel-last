@@ -4,14 +4,10 @@
 
 A lightweight and safe Bash utility to cancel the **last _N_ jobs** you submitted to a SLURM-managed HPC cluster.Sometimes, especially when submitting jobs in bulk, something goes wrong — a wrong input file, incorrect script, or parameter error. Instead of canceling each job manually, `scancel-last` helps you terminate your most recent jobs in a controlled, transparent way.
 
----
-
 ## Features
 
 - Cancels the **last N jobs** submitted by the current user, in **reverse order** (newest first)
 - Displays job information and  requests confirmation before proceeding
-
----
 
 ## Installation
 
