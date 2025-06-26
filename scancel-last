@@ -1,0 +1,43 @@
+#!/bin/bash
+#====================================================================
+# Kill the last n jobs you launched
+# Author: https://github.com/jgrll
+# License: MIT License (see LICENSE file)
+#====================================================================
+
+# Verify argument is provided
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <number_of_jobs_to_kill>"
+    exit 1
+fi
+
+N=$1
+USERNAME=$(whoami)  # Get current user automatically
+
+# Get job IDs (most recent at bottom)
+JOB_IDS=$(squeue -u "$USERNAME" -h -o "%A" | tail -n "$N")
+
+if [ -z "$JOB_IDS" ]; then
+    echo "No jobs found for user $USERNAME"
+    exit 0
+fi
+
+# Show jobs that will be killed
+echo "The most recent $N job(s) to be canceled:"
+squeue -u "$USERNAME" -j "${JOB_IDS//$'\n'/,}"
+
+# Confirm before killing
+read -p "Are you sure you want to kill these $N job(s)? [y/N] " -n 1 -r
+echo
+if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    echo "Job cancellation aborted."
+    exit 1
+fi
+
+# Kill jobs in reverse order (newest first)
+for JOB_ID in $(echo "$JOB_IDS" | tac); do
+    echo "Killing job $JOB_ID..."
+    scancel "$JOB_ID"
+done
+
+echo "Successfully canceled the most recent $N job(s)."
