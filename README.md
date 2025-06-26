@@ -19,15 +19,11 @@ git clone https://github.com/jgrll/scancel-last.git ~/scancel-last
 
 Move to the destination folder and execute ./install to add the path to your .bashrc file and voilà!
 
----
-
 ## Usage
 
 ```
-scancel-tail <number_of_jobs_to_kill>
+scancel-last <number_of_jobs_to_kill>
 ```
-
----
 
 ## Example
 
@@ -73,18 +69,12 @@ Killing job 1234586...
 Successfully canceled the most recent 20 job(s).
 ```
 
----
-
 ## Licence
 
 This project is licensed under the MIT License.
-
----
 
 ## Author
 
 [jgrll](https://github.com/jgrll)
 
 Feel free to open an issue or pull request if you have suggestions or encounter a bug.
-
-
